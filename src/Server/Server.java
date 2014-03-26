@@ -28,10 +28,13 @@ public class Server extends WebSocketServer{
 	@Override
 	public void onOpen(org.java_websocket.WebSocket conn,
 			ClientHandshake handshake) {
-		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room as client " + clientNum + " " + conn);
+		
+		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " started a connection");
+		/*
 		String Dest = String.format("%04d", clientNum++);
 		System.out.println(Dest);
 		master.put(Dest, conn);
+		*/
 	}
 
 	@Override
@@ -43,12 +46,17 @@ public class Server extends WebSocketServer{
 
 	@Override
 	public void onMessage(org.java_websocket.WebSocket conn, String message) {
-        String Dest = message.substring(0, 4);
-        System.out.println(Dest + " " + message.substring(4));
-        if (Dest.equals(String.format("%04d", 1))) System.out.println("True");
-        WebSocket c = master.get(Dest);
-        System.out.println(c.toString());
-        c.send(message.substring(4));
+		
+		String header = message.substring(0, 4);
+		
+		if (header.equals("UUID")){
+			System.out.println("New Connection.  UUID =" + message.substring(4));
+			master.put(message.substring(4), conn);
+		} else {
+			System.out.println("Message from " + header + " = " + message.substring(4));
+			WebSocket c = master.get(header);
+			c.send(message.substring(4));
+		}
         //sendAll(message.substring(4));
 	}
 

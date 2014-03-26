@@ -44,7 +44,7 @@ public class KeyPress {
 	try {
 		System.out.println(s.charAt(0));
         Robot robot = new Robot();
-		robot.delay(3000);
+		robot.delay(10);
         robot.keyPress(convertKey(s.charAt(0)));
         robot.keyRelease(convertKey(s.charAt(0)));
         
