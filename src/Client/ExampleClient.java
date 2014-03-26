@@ -8,8 +8,6 @@ import org.java_websocket.drafts.Draft_10;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ServerHandshake;
 
-import Client.KeyPress;
-
 /** This example demonstrates how to create a websocket connection to a server. Only the most important callbacks are overloaded. */
 public class ExampleClient extends WebSocketClient {
 
@@ -24,12 +22,12 @@ public class ExampleClient extends WebSocketClient {
 	@Override
 	public void onOpen( ServerHandshake handshakedata ) {
 		System.out.println( "opened connection" );
+		// if you plan to refuse connection based on ip or httpfields overload: onWebsocketHandshakeReceivedAsClient
 	}
 
 	@Override
 	public void onMessage( String message ) {
 		System.out.println( "received: " + message );
-		KeyPress.press(message);
 	}
 
 	@Override
@@ -50,7 +48,7 @@ public class ExampleClient extends WebSocketClient {
 	}
 
 	public static void main( String[] args ) throws URISyntaxException {
-		ExampleClient c = new ExampleClient( new URI( "ws://localhost:9898" )); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
+		ExampleClient c = new ExampleClient( new URI( "ws://localhost:9898" ), new Draft_10() ); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
 		c.connect();
 	}
 
