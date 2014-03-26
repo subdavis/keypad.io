@@ -50,9 +50,8 @@ public class ExampleClient extends WebSocketClient {
 	}
 
 	public static void main( String[] args ) throws URISyntaxException {
-		ExampleClient c = new ExampleClient( new URI( "ws://localhost:8889" ), new Draft_10() ); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
+		ExampleClient c = new ExampleClient( new URI( "ws://localhost:9898" )); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
 		c.connect();
-		c.send("name:19740");
 	}
 
 }
