@@ -8,7 +8,7 @@
   content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 <style type="text/css">
 	p, .test { font-family: sans-serif; }
-	.test { margin: 1em auto; width: 6em; line-height: 4em; border: 1px solid black; font-size: 2em; text-align: center; }
+	.test { margin: 1em auto; width: 4em; line-height: 3em; border: 1px solid black; font-size: 2em; text-align: center; }
 	.stats, .stats input { font-family: monospace; font-size: 0.9em; }
 	input { width: 10em; }
 
@@ -19,28 +19,17 @@
 <script type="application/javascript">
 	window.addEventListener('load', function() {
 		var testA, testB, teTime, cTime;
-
-		testA = document.getElementById('test-a');
-		testB = document.getElementById('test-b');
-
-		FastClick.attach(testB);
-		FastClick.attach(testA);
-
-		testA.addEventListener('touchend', function(event) {
-
-		}, false);
-
-		testA.addEventListener('click', function(event) {
-		testA.style.backgroundColor = testA.style.backgroundColor ? '' : 'YellowGreen';
-		}, false);
-
-		testB.addEventListener('touchend', function(event) {
-
-		}, false);
-
-		testB.addEventListener('click', function(event) {
-		testB.style.backgroundColor = testB.style.backgroundColor ? '' : 'YellowGreen';
-		}, false);
+		
+		<?php 
+		foreach ($_GET as $key => $value) {
+		if ($key == "UUID"){ }
+		else{
+		echo $key . "1 = document.getElementById('".$key."');\n";
+		echo "FastClick.attach(".$key."1);\n";
+		}
+		}
+		?>
+		
 	}, false);
 	
 		var inputBox = document.getElementById("message");
@@ -49,7 +38,7 @@
 
 		try {
 
-			var host = "ws://localhost:9898/";
+			var host = "ws://rsmc.tk:9898/";
 			console.log("Host:", host);
 			
 			var s = new WebSocket(host);
@@ -82,9 +71,33 @@
 <body>
 
 	<div>
+		<?php
 		
-		<div class="test" id="test-a" onclick="s.send('2573w')">W</div>
-		<div class="test" id="test-b" onclick="s.send('0019a')">A</div>
+		/*if (isset($_GET['left'])){ 
+		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "LEFT')\">LEFT</div>";
+		}
+		if (isset($_GET['right'])){ 
+		echo "<div class=\"test\" id=\"a\" onclick=\"s.send('" . $_GET["UUID"] . "RIGHT')\">RIGHT</div>";
+		}
+		if (isset($_GET['w'])){ 
+		echo "<div class=\"test\" id=\"c\" onclick=\"s.send('" . $_GET["UUID"] . "w')\">w</div>";
+		}
+		if (isset($_GET['a'])){ 
+		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "a')\">a</div>";
+		}
+		if (isset($_GET['s'])){ 
+		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "s')\">s</div>";
+		}
+		if (isset($_GET['d'])){ 
+		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "d')\">d</div>";
+		}*/
+		
+		foreach ($_GET as $key => $value) {
+		if ($key == "UUID"){}
+		else{
+		echo "<div class=\"test\" id=\"" . $key . "\" onclick=\"s.send('" . $_GET["UUID"] . $key . "')\">" . $key . "</div>\n";}
+		}
+		?>
 	</div>
 </body>
 </html>

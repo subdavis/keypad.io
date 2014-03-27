@@ -13,32 +13,24 @@
 <title>
 Brandon Davis
 </title>
-<link rel='stylesheet' href='/css/style.css' type='text/css' media='screen' />
+<link rel='stylesheet' href='css/style.css' type='text/css' media='screen' />
 </head>
 <body>
 <div id='header_container'> 
 	<div id='header'>
 	<span class='mainhead'>
-	<a href='/'>bdavis@redspin.net:~#_</a>
+	<a href='/'>FlashRemote</a>
 	</span>
 
 	<span class=right><span class=nav>
 	<a href='http://twitter.com/subdavis' target='_blank' style='target-new: tab;'>Twitter</a>
-	<a href='http://rsmc.tk' target='_blank' style='target-new: tab;'>RedSpinMC</a>
-	<a href='/me.php'>About Me</a>
-	<a href='/blog/'>Blog</a>
+	<a href='http://redsp.in' target='_blank' style='target-new: tab;'>Blog</a>
+	<a href='http://github.com/subdavis/flashremote'>GitHub</a>
+	<a href='FlashRemote.jar'>Downloads</a>
 	</span>
 	</span>
 	</div>
 </div>
 <div id='container'>
-<span class=sidebar>
-<span class=imgbody>
-<a href='https://twitter.com/subdavis' target='_blank' style='target-new: tab;'><img src='/images/twitter.png'></img></a><br>
-<a href='https://facebook.com/subdavis' target='_blank' style='target-new: tab;'><img src='/images/facebook.png'></img></a><br>
-<a href='/rss.php'><img src='/images/rss.png'/></a><br>
-<a href='mailto:bdavis@redspin.net'><img src='/images/mail.png'></img></a>
-</span>
-</span>
 ";
 ?>

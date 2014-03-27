@@ -2,7 +2,7 @@
 $footer = "
 <center><font size=2>
 <hr>
-redspin.net by suBDavis ||
+FlashRemote by redsp.in ||
 Hosted on a <a href='http://www.raspberrypi.org/'>Raspberry Pi</a> ||
 Protected by <a href='http://cloudflare.com'>CloudFlare</a>
 

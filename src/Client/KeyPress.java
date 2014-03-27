@@ -36,8 +36,11 @@ public class KeyPress {
 		case "x" : realNum= KeyEvent.VK_X; break;
 		case "y" : realNum= KeyEvent.VK_Y; break;
 		case "z" : realNum= KeyEvent.VK_Z; break;
-		case "RIGHT" : realNum= KeyEvent.VK_RIGHT; break;
-		case "LEFT" : realNum= KeyEvent.VK_LEFT; break;
+		case "right" : realNum= KeyEvent.VK_RIGHT; break;
+		case "left" : realNum= KeyEvent.VK_LEFT; break;
+		case "enter" : realNum= KeyEvent.VK_ENTER; break;
+		case "backspace" : realNum= KeyEvent.VK_BACK_SPACE; break;
+		case "space" : realNum= KeyEvent.VK_SPACE; break;
 		default : realNum = 0; break;
 		}
 		return realNum;
