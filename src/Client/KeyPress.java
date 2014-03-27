@@ -52,7 +52,7 @@ public class KeyPress {
         Robot robot = new Robot();
 		robot.delay(10);
         robot.keyPress(convertKey(s));
-        robot.delay(200);
+        robot.delay(50);
         robot.keyRelease(convertKey(s));
         
     } catch (AWTException e) {

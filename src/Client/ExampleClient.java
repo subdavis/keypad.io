@@ -19,7 +19,7 @@ import org.java_websocket.handshake.ServerHandshake;
 public class ExampleClient extends WebSocketClient{
 	
 	private static ExampleClient c;
-	static String uuid;
+	private static String uuid;
 
 	public ExampleClient( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
@@ -35,6 +35,7 @@ public class ExampleClient extends WebSocketClient{
 		
 		//Generate a four digit number, fill the left with 0s if shorter than 4 digits, and pass it to the server as the client UUID.
 		//Server will record the UUID with the connection in a hashmap so the web client can find the right desktop.
+		
 		Random r = new Random();
 		int uuidNum = r.nextInt(9999);
 		uuid = String.format("%04d", uuidNum);
@@ -63,6 +64,10 @@ public class ExampleClient extends WebSocketClient{
 	public void onError( Exception ex ) {
 		ex.printStackTrace();
 		// if the error is fatal then onClose will be called additionally
+	}
+	
+	public static String getUUID(){
+		return uuid;
 	}
 
 	public static void createClient() throws URISyntaxException {

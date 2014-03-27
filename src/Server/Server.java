@@ -21,7 +21,7 @@ public class Server extends WebSocketServer{
 	
 	//Stores new desktop connections in a hashmap with their UUID as the key.
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
-	HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
+	private HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -33,14 +33,12 @@ public class Server extends WebSocketServer{
 	}
 
 	@Override
-	public void onOpen(org.java_websocket.WebSocket conn,
-			ClientHandshake handshake) {		
+	public void onOpen(org.java_websocket.WebSocket conn, ClientHandshake handshake) {		
 		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " started a connection");
 	}
 
 	@Override
-	public void onClose(org.java_websocket.WebSocket conn, int code,
-			String reason, boolean remote) {
+	public void onClose(org.java_websocket.WebSocket conn, int code, String reason, boolean remote) {
 		System.out.println("Con " + conn + "Closed");
 		
 	}
@@ -54,7 +52,7 @@ public class Server extends WebSocketServer{
 			System.out.println("New Connection.  UUID =" + message.substring(4));
 			master.put(message.substring(4), conn);
 		} else {
-			System.out.println("Message from " + header + " = " + message.substring(4));
+			System.out.println("Message addressed to " + header + " = " + message.substring(4));
 			WebSocket c = master.get(header);
 			c.send(message.substring(4));
 		}
@@ -86,6 +84,7 @@ public class Server extends WebSocketServer{
 		System.out.println( "ChatServer started on port: " + s.getPort() );
 
 		BufferedReader sysin = new BufferedReader( new InputStreamReader( System.in ) );
+		
 		while ( true ) {
 			String in = sysin.readLine();
 			//s.send( in );
