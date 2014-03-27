@@ -1,3 +1,8 @@
+/*
+ * KeyPress server for relaying keys from the web client to the desktop client, ad keeping track of multiple pairs with a very simple protocol.
+ * Written by suBDavis (bdavis@redspin.net)
+ * WebSocket Library by github.com/tootallnate
+ */
 package Server;
 
 import java.io.BufferedReader;
@@ -13,8 +18,10 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 public class Server extends WebSocketServer{
+	
+	//Stores new desktop connections in a hashmap with their UUID as the key.
+	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
 	HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
-	int clientNum = 0;
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -27,14 +34,8 @@ public class Server extends WebSocketServer{
 
 	@Override
 	public void onOpen(org.java_websocket.WebSocket conn,
-			ClientHandshake handshake) {
-		
+			ClientHandshake handshake) {		
 		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " started a connection");
-		/*
-		String Dest = String.format("%04d", clientNum++);
-		System.out.println(Dest);
-		master.put(Dest, conn);
-		*/
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class Server extends WebSocketServer{
 	public void onMessage(org.java_websocket.WebSocket conn, String message) {
 		
 		String header = message.substring(0, 4);
-		
+		//Test the header to see if its a normal message or a new desktop client that needs storing
 		if (header.equals("UUID")){
 			System.out.println("New Connection.  UUID =" + message.substring(4));
 			master.put(message.substring(4), conn);
@@ -57,7 +58,6 @@ public class Server extends WebSocketServer{
 			WebSocket c = master.get(header);
 			c.send(message.substring(4));
 		}
-        //sendAll(message.substring(4));
 	}
 
 	@Override

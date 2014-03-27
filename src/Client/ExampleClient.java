@@ -1,3 +1,9 @@
+/*
+ * This is a Client for FlashRemote which receives characters from the server and presses the corresponding key.
+ * Written by suBDavis (bdavis@redspin.net)
+ * WebSocket Library by github.com/tootallnate
+ * 
+ */
 package Client;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,10 +15,11 @@ import org.java_websocket.drafts.Draft_10;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ServerHandshake;
 
-/** This example demonstrates how to create a websocket connection to a server. Only the most important callbacks are overloaded. */
+
 public class ExampleClient extends WebSocketClient{
 	
 	private static ExampleClient c;
+	static String uuid;
 
 	public ExampleClient( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
@@ -25,9 +32,12 @@ public class ExampleClient extends WebSocketClient{
 	@Override
 	public void onOpen( ServerHandshake handshakedata ) {
 		System.out.println( "opened connection" );
+		
+		//Generate a four digit number, fill the left with 0s if shorter than 4 digits, and pass it to the server as the client UUID.
+		//Server will record the UUID with the connection in a hashmap so the web client can find the right desktop.
 		Random r = new Random();
 		int uuidNum = r.nextInt(9999);
-		String uuid = String.format("%04d", uuidNum);
+		uuid = String.format("%04d", uuidNum);
 		System.out.println(uuid);
 		c.send("UUID" + uuid);
 	}
@@ -35,6 +45,7 @@ public class ExampleClient extends WebSocketClient{
 	@Override
 	public void onMessage( String message ) {
 		System.out.println( "received: " + message );
+		//Send the message to the KeyPress class for pressing :)
 		KeyPress.press(message);
 	}
 
@@ -45,7 +56,6 @@ public class ExampleClient extends WebSocketClient{
 
 	@Override
 	public void onClose( int code, String reason, boolean remote ) {
-		// The codecodes are documented in class org.java_websocket.framing.CloseFrame
 		System.out.println( "Connection closed by " + ( remote ? "remote peer" : "us" ) );
 	}
 
@@ -55,8 +65,10 @@ public class ExampleClient extends WebSocketClient{
 		// if the error is fatal then onClose will be called additionally
 	}
 
-	public static void main( String[] args ) throws URISyntaxException {
-		c = new ExampleClient(new URI( "ws://localhost:9898" ), new Draft_10() );
+	public static void createClient() throws URISyntaxException {
+		
+		//c is class private so all methods can acces her for sending messages if this is later necessary.
+		c = new ExampleClient(new URI( "ws://rsmc.tk:9898" ), new Draft_10() );
 		c.connect();
 	}
 

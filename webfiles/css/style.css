@@ -1,0 +1,117 @@
+/*
+* CSS Template by Brandon Davis
+* Redspin.net 2014 (Creative Commons)
+* Use this thing, make it better.  Just drop me a link back here :D
+*/
+
+#header_container {
+ background:#A3A3A3;
+ border-bottom:3px solid #666;
+ height:50px;
+ left:0;
+ position:fixed;
+ width:100%;
+ top:0;
+ } 
+#header{ 
+  line-height:50px; 
+  width:750px; 
+  margin:auto;
+  font-family:consolas; 
+  font-size:22; 
+  font-weight:bold;
+  color:#000000;
+  float:top;
+  }
+.mainhead a:visited{
+  color:#000000;
+}
+.right{
+  float:right;
+}
+.center{
+    position: relative;
+    left:6%;
+	z-index:-1;
+}
+.nav a{
+  height:100%;
+  font-size:17;
+  padding-top: 18px;
+  padding-bottom:14px;
+  padding-left:6px;
+  padding-right:6px;
+  color:#000000;
+}
+.nav a:hover{
+  background:#FFFFFF;
+  height:100%;
+  padding-top: 18px;
+  padding-bottom:14px;
+  padding-left:6px;
+  padding-right:6px;
+  color:#cc1616;
+}
+.sidebar {
+position:fixed;
+left:25;
+top: 75;
+z-index:0;
+height: 80px;
+}
+@media screen and (max-width: 1024px) {
+.sidebar {
+   display: none !important;
+	}
+}
+#container { 
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  width:750px;
+  padding: 20px;
+  background: #ffffff;
+  }
+.bloghead a{
+  color:#000000;
+}
+date {
+  font-family: courier new;
+  font-size:18;
+  font-weight:normal;
+  font-style:italic;
+}
+h1 {
+  margin-top:20px;
+  font-family: consolas;
+  font-size:45;
+  line-height: 110%;
+  font-weight:bold;
+}
+body {
+  font-family: Verdana, Serifa BT;
+  line-height: 160%;
+  background-image:url('/images/bg.png');
+  background-attachment:fixed;
+}
+.imgbody {
+  padding:0px 10px 10px 0px;
+}
+a img{
+  border:0px;
+}
+a:link {
+  text-decoration:none;
+  border:none;
+  }
+a:visited {
+  text-decoration:none;
+  }
+#footer-container{
+   width:100%;
+   bottom:0;
+   left:0;
+   background:#A3A3A3;
+   border-top:3px solid #666;
+   position:relative;
+  }
