@@ -36,6 +36,16 @@ public class KeyPress {
 		case "x" : realNum= KeyEvent.VK_X; break;
 		case "y" : realNum= KeyEvent.VK_Y; break;
 		case "z" : realNum= KeyEvent.VK_Z; break;
+		case "0" : realNum= KeyEvent.VK_0; break;
+		case "1" : realNum= KeyEvent.VK_1; break;
+		case "2" : realNum= KeyEvent.VK_2; break;
+		case "3" : realNum= KeyEvent.VK_3; break;
+		case "4" : realNum= KeyEvent.VK_4; break;
+		case "5" : realNum= KeyEvent.VK_5; break;
+		case "6" : realNum= KeyEvent.VK_6; break;
+		case "7" : realNum= KeyEvent.VK_7; break;
+		case "8" : realNum= KeyEvent.VK_8; break;
+		case "9" : realNum= KeyEvent.VK_9; break;
 		case "right" : realNum= KeyEvent.VK_RIGHT; break;
 		case "left" : realNum= KeyEvent.VK_LEFT; break;
 		case "enter" : realNum= KeyEvent.VK_ENTER; break;

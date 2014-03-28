@@ -16,16 +16,16 @@ import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ServerHandshake;
 
 
-public class ExampleClient extends WebSocketClient{
+public class Client extends WebSocketClient{
 	
-	private static ExampleClient c;
+	private static Client c;
 	private static String uuid;
 
-	public ExampleClient( URI serverUri , Draft draft ) {
+	public Client( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
 	}
 
-	public ExampleClient( URI serverURI ) {
+	public Client( URI serverURI ) {
 		super( serverURI );
 	}
 
@@ -73,7 +73,7 @@ public class ExampleClient extends WebSocketClient{
 	public static void createClient() throws URISyntaxException {
 		
 		//c is class private so all methods can acces her for sending messages if this is later necessary.
-		c = new ExampleClient(new URI( "ws://rsmc.tk:9898" ), new Draft_10() );
+		c = new Client(new URI( "ws://rsmc.tk:9898" ), new Draft_10() );
 		c.connect();
 	}
 

@@ -23,9 +23,9 @@ public class Gui extends JFrame{
   
 public static void main(String[] args) throws URISyntaxException, InterruptedException {
       //Begin the connection, then wait for it to finish and create the GUI
-	  ExampleClient.createClient();
+	  Client.createClient();
 	  delay(2);
-	  new Gui(ExampleClient.getUUID());
+	  new Gui(Client.getUUID());
 }
   
 private static void delay(double seconds) throws InterruptedException{
