@@ -35,6 +35,16 @@ public class KeyPress {
 		keyPressMap.put("x", KeyEvent.VK_X);
 		keyPressMap.put("y", KeyEvent.VK_Y);
 		keyPressMap.put("z", KeyEvent.VK_Z);
+		keyPressMap.put("0", KeyEvent.VK_0);
+		keyPressMap.put("1", KeyEvent.VK_1);
+		keyPressMap.put("2", KeyEvent.VK_2);
+		keyPressMap.put("3", KeyEvent.VK_3);
+		keyPressMap.put("4", KeyEvent.VK_4);
+		keyPressMap.put("5", KeyEvent.VK_5);
+		keyPressMap.put("6", KeyEvent.VK_6);
+		keyPressMap.put("7", KeyEvent.VK_7);
+		keyPressMap.put("8", KeyEvent.VK_8);
+		keyPressMap.put("9", KeyEvent.VK_9);
 		keyPressMap.put("right", KeyEvent.VK_RIGHT);
 		keyPressMap.put("left", KeyEvent.VK_LEFT);
 		keyPressMap.put("enter", KeyEvent.VK_ENTER);

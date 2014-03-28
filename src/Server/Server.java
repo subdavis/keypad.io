@@ -46,6 +46,7 @@ public class Server extends WebSocketServer{
 	@Override
 	public void onMessage(org.java_websocket.WebSocket conn, String message) {
 		
+		//SHIT \/\/
 		String header = message.substring(0, 4);
 		//Test the header to see if its a normal message or a new desktop client that needs storing
 		if (header.equals("UUID")){
