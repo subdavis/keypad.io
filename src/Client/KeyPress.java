@@ -3,47 +3,52 @@ package Client;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KeyPress {
+	private static Map<String, Integer> keyPressMap = new HashMap<>();
+	static {
+		keyPressMap.put("a", KeyEvent.VK_A);
+		keyPressMap.put("b", KeyEvent.VK_B);
+		keyPressMap.put("c", KeyEvent.VK_C);
+		keyPressMap.put("d", KeyEvent.VK_D);
+		keyPressMap.put("e", KeyEvent.VK_E);
+		keyPressMap.put("f", KeyEvent.VK_F);
+		keyPressMap.put("g", KeyEvent.VK_G);
+		keyPressMap.put("h", KeyEvent.VK_H);
+		keyPressMap.put("i", KeyEvent.VK_I);
+		keyPressMap.put("j", KeyEvent.VK_J);
+		keyPressMap.put("k", KeyEvent.VK_K);
+		keyPressMap.put("l", KeyEvent.VK_L);
+		keyPressMap.put("m", KeyEvent.VK_M);
+		keyPressMap.put("n", KeyEvent.VK_N);
+		keyPressMap.put("o", KeyEvent.VK_O);
+		keyPressMap.put("p", KeyEvent.VK_P);
+		keyPressMap.put("q", KeyEvent.VK_Q);
+		keyPressMap.put("r", KeyEvent.VK_R);
+		keyPressMap.put("s", KeyEvent.VK_S);
+		keyPressMap.put("t", KeyEvent.VK_T);
+		keyPressMap.put("u", KeyEvent.VK_U);
+		keyPressMap.put("v", KeyEvent.VK_V);
+		keyPressMap.put("w", KeyEvent.VK_W);
+		keyPressMap.put("x", KeyEvent.VK_X);
+		keyPressMap.put("y", KeyEvent.VK_Y);
+		keyPressMap.put("z", KeyEvent.VK_Z);
+		keyPressMap.put("right", KeyEvent.VK_RIGHT);
+		keyPressMap.put("left", KeyEvent.VK_LEFT);
+		keyPressMap.put("enter", KeyEvent.VK_ENTER);
+		keyPressMap.put("backspace", KeyEvent.VK_BACK_SPACE);
+		keyPressMap.put("space", KeyEvent.VK_SPACE);
+	}
 	
 	//covert keys from characters to their key events.
 	public static int convertKey(String s){
-		int realNum = 0;
-		switch (s){
-		case "a" : realNum= KeyEvent.VK_A; break;
-		case "b" : realNum= KeyEvent.VK_B; break;
-		case "c" : realNum= KeyEvent.VK_C; break;
-		case "d" : realNum= KeyEvent.VK_D; break;
-		case "e" : realNum= KeyEvent.VK_E; break;
-		case "f" : realNum= KeyEvent.VK_F; break;
-		case "g" : realNum= KeyEvent.VK_G; break;
-		case "h" : realNum= KeyEvent.VK_H; break;
-		case "i" : realNum= KeyEvent.VK_I; break;
-		case "j" : realNum= KeyEvent.VK_J; break;
-		case "k" : realNum= KeyEvent.VK_K; break;
-		case "l" : realNum= KeyEvent.VK_L; break;
-		case "m" : realNum= KeyEvent.VK_M; break;
-		case "n" : realNum= KeyEvent.VK_N; break;
-		case "o" : realNum= KeyEvent.VK_O; break;
-		case "p" : realNum= KeyEvent.VK_P; break;
-		case "q" : realNum= KeyEvent.VK_Q; break;
-		case "r" : realNum= KeyEvent.VK_R; break;
-		case "s" : realNum= KeyEvent.VK_S; break;
-		case "t" : realNum= KeyEvent.VK_T; break;
-		case "u" : realNum= KeyEvent.VK_U; break;
-		case "v" : realNum= KeyEvent.VK_V; break;
-		case "w" : realNum= KeyEvent.VK_W; break;
-		case "x" : realNum= KeyEvent.VK_X; break;
-		case "y" : realNum= KeyEvent.VK_Y; break;
-		case "z" : realNum= KeyEvent.VK_Z; break;
-		case "right" : realNum= KeyEvent.VK_RIGHT; break;
-		case "left" : realNum= KeyEvent.VK_LEFT; break;
-		case "enter" : realNum= KeyEvent.VK_ENTER; break;
-		case "backspace" : realNum= KeyEvent.VK_BACK_SPACE; break;
-		case "space" : realNum= KeyEvent.VK_SPACE; break;
-		default : realNum = 0; break;
-		}
-		return realNum;
+		Integer key = keyPressMap.get(s);
+		if(key == null)
+			return 0;
+		else
+			return key;
 	}
 	
 	public static void press(String s){
