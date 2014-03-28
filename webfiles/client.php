@@ -8,7 +8,8 @@
   content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 <style type="text/css">
 	p, .test { font-family: sans-serif; }
-	.test { margin: 1em auto; width: 4em; line-height: 3em; border: 1px solid black; font-size: 2em; text-align: center; }
+	.test {padding-top: 10px; padding-bottom: 10px; padding-left: 30px; padding-right: 30px; margin: 10px; width: 80px; line-height: 90px; border: 2px solid black; font-size: 3em; text-align: center; }
+	full{padding-top: 10px; padding-bottom: 10px; padding-left: 30px; padding-right: 30px; height=100%;}
 	.stats, .stats input { font-family: monospace; font-size: 0.9em; }
 	input { width: 10em; }
 
@@ -24,8 +25,9 @@
 		foreach ($_GET as $key => $value) {
 		if ($key == "UUID"){ }
 		else{
-		echo $key . "1 = document.getElementById('".$key."');\n";
-		echo "FastClick.attach(".$key."1);\n";
+		echo "var x" . $key .";\n";
+		echo "x".$key . " = document.getElementById('".$key."');\n";
+		echo "FastClick.attach(x".$key.");\n";
 		}
 		}
 		?>
@@ -71,6 +73,7 @@
 <body>
 
 	<div>
+		<center>
 		<?php
 		
 		/*if (isset($_GET['left'])){ 
@@ -93,9 +96,13 @@
 		}*/
 		
 		foreach ($_GET as $key => $value) {
+		static $x=0;
 		if ($key == "UUID"){}
 		else{
-		echo "<div class=\"test\" id=\"" . $key . "\" onclick=\"s.send('" . $_GET["UUID"] . $key . "')\">" . $key . "</div>\n";}
+		if ((($x+1) % 2) == 0 || strlen($key) > 1) {echo "<br>";}
+		echo "<span class=\"test\" id=\"" . $key . "\" onclick=\"s.send('" . $_GET["UUID"] . $key . "')\"><full>" . $key . "</full></span>\n";
+		}
+		$x++;
 		}
 		?>
 	</div>

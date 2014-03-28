@@ -14,8 +14,8 @@ In any web browser, go to <b>rsmc.tk/socket</b>.  Start the desktop client first
 </p>
 <form action="client.php" method="get">
 Desktop Client UUID <input type="text" name="UUID"> 
-<input type='submit'><br><br>
-Tick the keys you will need.<br>
+<br><br>
+<b>Tick the keys you will need.</b><br><br>
 <input type="checkbox" name="a" value="a" >a
 <input type="checkbox" name="b" value="b" >b  
 <input type="checkbox" name="c" value="c" >c  
@@ -42,11 +42,6 @@ Tick the keys you will need.<br>
 <input type="checkbox" name="x" value="x" >x  
 <input type="checkbox" name="y" value="y" >y  
 <input type="checkbox" name="z" value="z" >z<br>
-<input type="checkbox" name="left" value="left" >LEFT ARROW
-<input type="checkbox" name="right" value="right" >RIGHT ARROW
-<input type="checkbox" name="enter" value="enter" >ENTER
-<input type="checkbox" name="backspace" value="backspace" >BACKSPACE
-<input type="checkbox" name="space" value="space" >SPACE<br>
 <input type="checkbox" name="0" value="0" >0
 <input type="checkbox" name="1" value="1" >1
 <input type="checkbox" name="2" value="2" >2
@@ -56,5 +51,11 @@ Tick the keys you will need.<br>
 <input type="checkbox" name="6" value="6" >6
 <input type="checkbox" name="7" value="7" >7
 <input type="checkbox" name="8" value="8" >8
-<input type="checkbox" name="9" value="9" >9
+<input type="checkbox" name="9" value="9" >9<br>
+<input type="checkbox" name="left" value="left" >LEFT ARROW
+<input type="checkbox" name="right" value="right" >RIGHT ARROW
+<input type="checkbox" name="enter" value="enter" >ENTER
+<input type="checkbox" name="backspace" value="backspace" >BACKSPACE
+<input type="checkbox" name="space" value="space" >SPACE<br><br>
+<input type='submit'>
 </form>

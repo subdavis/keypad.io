@@ -1,17 +1,17 @@
 <?php $header = "
 <html>
 <head>
-<meta name='description' content='The blog of suBDavis. Keeping track of all my various tech and personal projects.' />
-<meta name='keywords' content='brandon, davis, brandon daivs, redspin, subdavis, rsmc, minecraft' />
-<meta name='author' content='Brandon Davis' />
-<meta property='og:title' content='Redspin Blog'/>
+<meta name='description' content='A nifty low-latency keypress-sending tool.' />
+<meta name='keywords' content='subdavis, flashremote, keypress, keystroke, remote' />
+<meta name='author' content='FlashRemote' />
+<meta property='og:title' content='FlashRemote'/>
 <meta property='og:image' content='http://redsp.in/images/rsmclogo.png'/>
 <meta property='og:url' content='http://redsp.in'/>
 <meta name='robots' content='index,follow'>
-<meta property='og:description' content='The blog of suBDavis. Keeping track of all my various tech and personal projects.'/>
+<meta property='og:description' content='A nifty low-latency keypress-sending tool.'/>
 <meta name='google-site-verification' content='9OPUNFEuYGkM7G67qKh3adAegTAwqbZtPoELbwYeeY0' />
 <title>
-Brandon Davis
+Flash Remote
 </title>
 <link rel='stylesheet' href='css/style.css' type='text/css' media='screen' />
 </head>
