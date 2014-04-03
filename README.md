@@ -1,3 +1,5 @@
+Working on rework of entire message handling system.  Removed collaborators so we dont interfere.
+
 FlashRemote
 ===========
 
