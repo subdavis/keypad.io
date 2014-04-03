@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.awt.AWTException;
 import java.awt.Robot;

@@ -4,7 +4,7 @@
  * WebSocket Library by github.com/tootallnate
  * 
  */
-package Client;
+package client;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Random;

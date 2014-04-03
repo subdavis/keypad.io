@@ -3,7 +3,7 @@
  * Written by suBDavis (bdavis@redspin.net)
  * WebSocket Library by github.com/tootallnate
  */
-package Server;
+package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,9 +17,11 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import utilities.Message;
+
 public class Server extends WebSocketServer{
 	
-	//Stores new desktop connections in a hashmap with their UUID as the key.
+	//Stores new desktop connections in a hash map with their UUID as the key.
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
 	private HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
 	
@@ -46,7 +48,12 @@ public class Server extends WebSocketServer{
 	@Override
 	public void onMessage(org.java_websocket.WebSocket conn, String message) {
 		
-		//SHIT \/\/
+		Message full = new Message(message);
+		if (!master.containsValue(full.getOrigin())){
+			System.out.println("New Connection.  ID =" + full.getOrigin());
+		}
+		
+		/*
 		String header = message.substring(0, 4);
 		//Test the header to see if its a normal message or a new desktop client that needs storing
 		if (header.equals("UUID")){
@@ -57,6 +64,7 @@ public class Server extends WebSocketServer{
 			WebSocket c = master.get(header);
 			c.send(message.substring(4));
 		}
+		*/
 	}
 
 	@Override

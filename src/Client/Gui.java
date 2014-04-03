@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.awt.*; 
 import java.net.URISyntaxException;
