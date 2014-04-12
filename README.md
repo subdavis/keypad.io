@@ -1,4 +1,4 @@
-Working on rework of entire message handling system.  Removed collaborators so we dont interfere.
+Visit http://flash.redspin.net
 
 FlashRemote
 ===========
@@ -17,7 +17,7 @@ On the machine that will RECEIVE the keystrokes, Build and run the Client Jar.  
 
 On Mobile
 ----------
-In any web browser, go to http://rsmc.tk/socket. Start the desktop client first, and it will give you a UUID to enter.
+In any web browser, go to http://flash.redspin.net. Start the desktop client first, and it will give you a UUID to enter.
 
 Thanks to...
 ---------
