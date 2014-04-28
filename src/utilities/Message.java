@@ -32,7 +32,7 @@ public class Message {
 			this.message = temp[2];
 			this.hash = temp[3];
 		} else {
-			throw new IllegalArgumentException("String bad formatting");
+			System.out.println(raw);
 		}
 	}
 	

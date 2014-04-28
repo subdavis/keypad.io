@@ -44,7 +44,6 @@
 			console.log("Host:", host);
 			
 			var s = new WebSocket(host);
-			s.send("Test MEssage");
 			s.onopen = function (e) {
 				console.log("Socket opened.");
 			};
@@ -76,31 +75,12 @@
 		<center>
 		<?php
 		
-		/*if (isset($_GET['left'])){ 
-		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "LEFT')\">LEFT</div>";
-		}
-		if (isset($_GET['right'])){ 
-		echo "<div class=\"test\" id=\"a\" onclick=\"s.send('" . $_GET["UUID"] . "RIGHT')\">RIGHT</div>";
-		}
-		if (isset($_GET['w'])){ 
-		echo "<div class=\"test\" id=\"c\" onclick=\"s.send('" . $_GET["UUID"] . "w')\">w</div>";
-		}
-		if (isset($_GET['a'])){ 
-		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "a')\">a</div>";
-		}
-		if (isset($_GET['s'])){ 
-		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "s')\">s</div>";
-		}
-		if (isset($_GET['d'])){ 
-		echo "<div class=\"test\" id=\"b\" onclick=\"s.send('" . $_GET["UUID"] . "d')\">d</div>";
-		}*/
-		
 		foreach ($_GET as $key => $value) {
 		static $x=0;
 		if ($key == "UUID"){}
 		else{
 		if ((($x+1) % 2) == 0 || strlen($key) > 1) {echo "<br>";}
-		echo "<span class=\"test\" id=\"" . $key . "\" onclick=\"s.send('" . $_GET["UUID"] . $key . "')\"><full>" . $key . "</full></span>\n";
+		echo "<span class=\"test\" id=\"" . $key . "\" onclick=\"s.send('0000." . $_GET["UUID"] .".". $key . "." . "1313')\"><full>" . $key . "</full></span>\n";
 		}
 		$x++;
 		}

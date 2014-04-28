@@ -46,13 +46,16 @@ public class Server extends WebSocketServer{
 	}
 
 	@Override
-	public void onMessage(org.java_websocket.WebSocket conn, String message) {
+	public void onMessage(WebSocket conn, String message) {
 		
 		Message full = new Message(message);
-		if (!master.containsValue(full.getOrigin())){
+		if (full.getDestination().equals("0000")){
 			System.out.println("New Connection.  ID =" + full.getOrigin());
+			master.put(full.getOrigin(), conn);
+		} else {
+			WebSocket c = master.get(full.getDestination());
+			c.send(message);
 		}
-		
 		/*
 		String header = message.substring(0, 4);
 		//Test the header to see if its a normal message or a new desktop client that needs storing
