@@ -7,6 +7,7 @@
 package client;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Random;
 
 import org.java_websocket.client.WebSocketClient;
@@ -22,6 +23,8 @@ public class Client extends WebSocketClient{
 	
 	private static Client c;
 	private static String uuid;
+	private static String lastKey;
+	private static Observer cliObserver;
 
 	public Client( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
@@ -43,6 +46,7 @@ public class Client extends WebSocketClient{
 		uuid = String.format("%04d", uuidNum);
 		System.out.println(uuid);
 		c.send( uuid + ".0000.null.1313");
+		lastKey = null;
 	}
 
 	@Override
@@ -50,7 +54,9 @@ public class Client extends WebSocketClient{
 		Message full = new Message(message);
 		System.out.println( "received: " + full.getMessage() + " from " + full.getOrigin());
 		//Send the message to the KeyPress class for pressing :)
+		lastKey = full.getMessage();
 		KeyPress.press(full.getMessage());
+		notifyObservers();
 	}
 
 	@Override
@@ -70,14 +76,33 @@ public class Client extends WebSocketClient{
 	}
 	
 	public static String getUUID(){
+		while (uuid==null){
+			try {
+			    Thread.sleep(50);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
 		return uuid;
 	}
+	
+	public static String getLastKey(){
+		return lastKey;
+	}
 
-	public static void createClient() throws URISyntaxException {
+	public synchronized static void createClient() throws URISyntaxException {
 		
 		//c is class private so all methods can acces her for sending messages if this is later necessary.
 		c = new Client(new URI( "ws://redspin.net:9898" ), new Draft_10() );
 		c.connect();
+	}
+
+	public static void addObserver(Gui g) {
+		cliObserver = g;
+	}
+	
+	public static void notifyObservers(){
+		cliObserver.update(uuid, lastKey);
 	}
 
 }
