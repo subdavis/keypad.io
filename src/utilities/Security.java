@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 
 public class Security {
 	
-	public String makeHash(String passwordToHash){
+	public static String makeHash(String passwordToHash){
 		String generatedPassword;
         try {
             // Create MessageDigest instance for MD5

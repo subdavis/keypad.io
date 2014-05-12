@@ -7,7 +7,7 @@
 package client;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.security.Security;
 import java.util.Random;
 
 import org.java_websocket.client.WebSocketClient;
@@ -25,6 +25,7 @@ public class Client extends WebSocketClient{
 	private static String uuid;
 	private static String lastKey;
 	private static Observer cliObserver;
+	private boolean isAuthed;
 
 	public Client( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
@@ -36,17 +37,17 @@ public class Client extends WebSocketClient{
 
 	@Override
 	public void onOpen( ServerHandshake handshakedata ) {
-		System.out.println( "opened connection" );
 		
 		//Generate a four digit number, fill the left with 0s if shorter than 4 digits, and pass it to the server as the client UUID.
 		//Server will record the UUID with the connection in a hashmap so the web client can find the right desktop.
-		
+		String epoch = "" + System.currentTimeMillis()/1000;
 		Random r = new Random();
 		int uuidNum = r.nextInt(9999);
 		uuid = String.format("%04d", uuidNum);
-		System.out.println(uuid);
-		c.send( uuid + ".0000.null.1313");
+		c.send( uuid + ".auth." + epoch + "." + utilities.Security.makeHash(epoch));
 		lastKey = null;
+		
+		System.out.println("Opened connection on " + uuid);
 	}
 
 	@Override
@@ -92,8 +93,8 @@ public class Client extends WebSocketClient{
 
 	public synchronized static void createClient() throws URISyntaxException {
 		
-		//c is class private so all methods can acces her for sending messages if this is later necessary.
-		c = new Client(new URI( "ws://redspin.net:9898" ), new Draft_10() );
+		//c is class private so all methods can access her for sending messages if this is later necessary.
+		c = new Client(new URI( "wss://redspin.net:9898" ), new Draft_10() );
 		c.connect();
 	}
 
@@ -102,7 +103,10 @@ public class Client extends WebSocketClient{
 	}
 	
 	public static void notifyObservers(){
-		cliObserver.update(uuid, lastKey);
+		cliObserver.update();
+	}
+	private static void auth(){
+		int step = 0;
 	}
 
 }

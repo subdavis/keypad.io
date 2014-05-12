@@ -24,6 +24,7 @@ public class Server extends WebSocketServer{
 	//Stores new desktop connections in a hash map with their UUID as the key.
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
 	private HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
+	private HashMap<WebSocket, String> webmaster = new HashMap<WebSocket, String>();
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -49,12 +50,17 @@ public class Server extends WebSocketServer{
 	public void onMessage(WebSocket conn, String message) {
 		
 		Message full = new Message(message);
-		if (full.getDestination().equals("0000")){
+		if (full.getPurpose().equals("auth") && !full.getOrigin().equals("web")){
+			//Auth process being ignored at the moment
 			System.out.println("New Connection.  ID =" + full.getOrigin());
 			master.put(full.getOrigin(), conn);
-		} else {
-			WebSocket c = master.get(full.getDestination());
-			c.send(message);
+		} 
+		else if (full.getPurpose().equals("auth")){
+			//Auth process being ignored at the moment.
+			webmaster.put(conn, full.getMessage());
+		}
+		else {
+			master.get(webmaster.get(conn)).send(message);
 		}
 		/*
 		String header = message.substring(0, 4);

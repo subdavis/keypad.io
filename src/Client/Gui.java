@@ -1,6 +1,8 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +30,11 @@ public class Gui extends JFrame implements Observer{
 	showLastKey = new JLabel("n/a");
 	info = new JLabel("Your UUID is " + null);
 	JButton pause = new JButton("Pause Connection");
+	pause.addActionListener(new ActionListener(){ 
+		  public void actionPerformed(ActionEvent e) { 
+			    pausePressed();
+			  }
+			});
 	
 	main_frame.add(top_panel, BorderLayout.CENTER);
 	top_panel.add(info, BorderLayout.CENTER);
@@ -38,11 +45,14 @@ public class Gui extends JFrame implements Observer{
   }
 
   @Override
-  public void update(String uuid, String last) {
-	info.setText("Your UUID is " + uuid);
-	showLastKey.setText(last);
+  public void update() {
+	info.setText(Client.getUUID());
+	showLastKey.setText(Client.getLastKey());
 	this.validate();
 	this.repaint();
   }
+  private void pausePressed() {
+		System.out.println("Paused");
+	} 
   
 }
