@@ -1,5 +1,3 @@
-Visit http://flash.redspin.net
-
 FlashRemote
 ===========
 
@@ -11,16 +9,17 @@ FlashRemote uses WebSockets and Java to send keystrokes in real time to your com
 
  + Use a smartphone to advance PowerPoints!
   
+
 On PC / Mac
 -----------
-On the machine that will RECEIVE the keystrokes, Build and run the Client Jar.  Main method is in /src/Client/Gui.java.  You need Java 7 to run this. Java is what keeps FlashRemote simple and flexible.
+Simply download and run the standalone .jar or .exe, which will give you an ID number and password, kind of like teamviewer.  No need to create an account or enter an email address.
 
 On Mobile
 ----------
-In any web browser, go to http://flash.redspin.net. Start the desktop client first, and it will give you a UUID to enter.
+In any web browser, go to keypad.io and input the credentials given by the desktop client.
 
 Thanks to...
 ---------
-The web end implements the fastclick library from https://github.com/ftlabs/fastclick
+ The fastclick library from https://github.com/ftlabs/fastclick
 
-Thanks to @TooTallNate for the Java WebSocket Library at https://github.com/TooTallNate/Java-WebSocket
+ @TooTallNate for the Java WebSocket Library at https://github.com/TooTallNate/Java-WebSocket
