@@ -1,7 +1,7 @@
-FlashRemote
+keypad.io
 ===========
 
-FlashRemote uses WebSockets and Java to send keystrokes in real time to your computer from any mobile device.
+keypad.io uses WebSockets and Java to send keystrokes in real time to your computer from any mobile device.  
 
  + Send Keystrokes remotely from any computer / mobile device
 
