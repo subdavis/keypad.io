@@ -10,21 +10,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import utilities.Message;
+import utilities.Security;
 
 public class Server extends WebSocketServer{
 	
 	//Stores new desktop connections in a hash map with their UUID as the key.
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
-	private HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
-	private HashMap<WebSocket, String> webmaster = new HashMap<WebSocket, String>();
+	private HashMap<String, Connection> allCons = new HashMap<String, Connection>();
+	private HashMap<Connection, WebSocket> allSockets = new HashMap<Connection, WebSocket>();
+	private HashMap<WebSocket, WebSocket> SocketMap = new HashMap<WebSocket, WebSocket>();
+	private ArrayList<String> allIds = new ArrayList<String>();
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -38,11 +44,13 @@ public class Server extends WebSocketServer{
 	@Override
 	public void onOpen(org.java_websocket.WebSocket conn, ClientHandshake handshake) {		
 		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " started a connection");
+		greet(conn);
 	}
 
 	@Override
 	public void onClose(org.java_websocket.WebSocket conn, int code, String reason, boolean remote) {
 		System.out.println("Con " + conn + "Closed");
+		//need to remove entries from allCons and allIds.
 		
 	}
 
@@ -50,19 +58,24 @@ public class Server extends WebSocketServer{
 	public void onMessage(WebSocket conn, String message) {
 		
 		Message full = new Message(message);
-		if (full.getPurpose().equals("auth") && !full.getOrigin().equals("web")){
-			//Auth process being ignored at the moment
-			System.out.println("New Connection.  ID =" + full.getOrigin());
-			master.put(full.getOrigin(), conn);
+		
+		if (full.getPurpose().equals("auth") && full.getOrigin().equals("web")){
+			//check password
+			String knownHash = allCons.get(full.getID()).getHashedPass();
+			String newHash = Security.makeHash(full.getPassword() + allCons.get(full.getID()).getSalt());
+			if (knownHash.equals(newHash)){
+				SocketMap.put(conn, allSockets.get(allCons.get(full.getID())));
+			}
 		} 
-		else if (full.getPurpose().equals("auth")){
-			//Auth process being ignored at the moment.
-			webmaster.put(conn, full.getMessage());
+		else if (full.getPurpose().equals("auth") && full.getOrigin().equals("client")){
+			Connection temp = new Connection(full.getID());
+			temp.setAuthed(true);
 		}
 		else {
-			master.get(webmaster.get(conn)).send(message);
+
 		}
 		/*
+		-------------------
 		String header = message.substring(0, 4);
 		//Test the header to see if its a normal message or a new desktop client that needs storing
 		if (header.equals("UUID")){
@@ -88,6 +101,20 @@ public class Server extends WebSocketServer{
 				c.send( text );
 			}
 		}
+	}
+	private void greet(WebSocket conn) {
+		String id = newID();
+		if (!allIds.contains(id)){
+		allIds.add(id);
+		conn.send("server.auth." + id);
+		}
+		else greet(conn);
+	}
+	private String newID(){
+		Random r = new Random();
+		int uuidNum = r.nextInt(99999);
+		String id = String.format("%05d", uuidNum);
+		return id;
 	}
 	
 	
