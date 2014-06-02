@@ -68,11 +68,11 @@ public class Server extends WebSocketServer{
 			}
 		} 
 		else if (full.getPurpose().equals("auth") && full.getOrigin().equals("client")){
-			Connection temp = new Connection(full.getID());
+			Connection temp = new Connection(full.getID(), full.getPasshash(), full.getSalt());
 			temp.setAuthed(true);
 		}
 		else {
-
+			
 		}
 		/*
 		-------------------
