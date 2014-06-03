@@ -17,6 +17,7 @@ import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ServerHandshake;
 
 import utilities.Message;
+import utilities.Security;
 
 
 public class Client extends WebSocketClient{
@@ -24,7 +25,10 @@ public class Client extends WebSocketClient{
 	private static Client c;
 	private static String uuid;
 	private static String lastKey;
-	private static Observer cliObserver;
+	private static String password;
+	private static boolean status = false;
+	private static boolean paused = false;
+	private static Gui gooey;
 
 	public Client( URI serverUri , Draft draft ) {
 		super( serverUri, draft );
@@ -42,21 +46,22 @@ public class Client extends WebSocketClient{
 		//Server will record the UUID with the connection in a hashmap so the web client can find the right desktop.
 		
 		Random r = new Random();
-		int uuidNum = r.nextInt(9999);
-		uuid = String.format("%04d", uuidNum);
+		int uuidNum = r.nextInt(99999);
+		String id = String.format("%05d", uuidNum);
+		uuid = Security.makeHash(password + id);
 		System.out.println(uuid);
-		c.send( uuid + ".0000.null.1313");
+		c.send("auth." + uuid);
 		lastKey = null;
+		status = true;
+		gooey.setID(id);
 	}
 
 	@Override
 	public void onMessage( String message ) {
 		Message full = new Message(message);
-		System.out.println( "received: " + full.getMessage() + " from " + full.getOrigin());
-		//Send the message to the KeyPress class for pressing :)
+		System.out.println( "received: " + full.getMessage());
 		lastKey = full.getMessage();
 		KeyPress.press(full.getMessage());
-		notifyObservers();
 	}
 
 	@Override
@@ -75,34 +80,31 @@ public class Client extends WebSocketClient{
 		// if the error is fatal then onClose will be called additionally
 	}
 	
-	public static String getUUID(){
-		while (uuid==null){
-			try {
-			    Thread.sleep(50);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-		}
-		return uuid;
-	}
-	
 	public static String getLastKey(){
 		return lastKey;
 	}
 
-	public synchronized static void createClient() throws URISyntaxException {
-		
+	public synchronized static void createClient(String pass) throws URISyntaxException {
 		//c is class private so all methods can acces her for sending messages if this is later necessary.
-		c = new Client(new URI( "ws://redspin.net:9898" ), new Draft_10() );
+		c = new Client(new URI( "ws://localhost:9898" ), new Draft_10() );
 		c.connect();
+		password = pass;
 	}
 
-	public static void addObserver(Gui g) {
-		cliObserver = g;
+	public static boolean getStatus() {
+		// TODO Auto-generated method stub
+		return status;
 	}
-	
-	public static void notifyObservers(){
-		cliObserver.update(uuid, lastKey);
+
+	public static void togglePaused() {
+		paused = (!paused);
+		gooey.togglePaused();
+	}
+	public static boolean isPaused(){
+		return paused;
+	}
+	public static void setGUI(Gui gui){
+		gooey = gui;
 	}
 
 }

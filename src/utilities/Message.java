@@ -19,18 +19,14 @@ package utilities;
 public class Message {
 	private String raw;
 	private String message;
-    private String hash;
-	private String origin;
-	private String destination;
+    private String purpose;
 	
 	public Message(String message){
 		this.raw = message;
 		String[] temp = raw.split("[.]+");
-		if (temp.length == 4){
-			this.origin = temp[0];
-			this.destination= temp[1];
-			this.message = temp[2];
-			this.hash = temp[3];
+		if (temp.length == 2){
+			this.purpose = temp[0];
+			this.message= temp[1];
 		} else {
 			System.out.println(raw);
 		}
@@ -40,14 +36,8 @@ public class Message {
 		return message;
 	}
 	
-	public String getOrigin(){
-		return origin;
-	}
-	public String getDestination(){
-		return destination;
-	}
-	public String getHash(){
-		return hash;
+	public String getPurpose(){
+		return purpose;
 	}
 	
 }

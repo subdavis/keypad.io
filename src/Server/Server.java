@@ -24,6 +24,7 @@ public class Server extends WebSocketServer{
 	//Stores new desktop connections in a hash map with their UUID as the key.
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
 	private HashMap<String, WebSocket> master = new HashMap<String, WebSocket>();
+	private HashMap<WebSocket, WebSocket> socketmaster = new HashMap<WebSocket, WebSocket>();
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -42,32 +43,25 @@ public class Server extends WebSocketServer{
 	@Override
 	public void onClose(org.java_websocket.WebSocket conn, int code, String reason, boolean remote) {
 		System.out.println("Con " + conn + "Closed");
-		
 	}
 
 	@Override
 	public void onMessage(WebSocket conn, String message) {
 		
 		Message full = new Message(message);
-		if (full.getDestination().equals("0000")){
-			System.out.println("New Connection.  ID =" + full.getOrigin());
-			master.put(full.getOrigin(), conn);
+		
+		if (full.getPurpose().equals("auth")){
+			System.out.println("New Connection.  UUID =" + full.getMessage());
+			master.put(full.getMessage(), conn);
+		} else if (full.getPurpose().equals("webauth")) {
+			System.out.println("Web auth " + full.getMessage());
+			if (master.containsKey(full.getMessage())){
+			socketmaster.put(conn, master.get(full.getMessage()));
+			}
 		} else {
-			WebSocket c = master.get(full.getDestination());
+			WebSocket c = socketmaster.get(conn);
 			c.send(message);
 		}
-		/*
-		String header = message.substring(0, 4);
-		//Test the header to see if its a normal message or a new desktop client that needs storing
-		if (header.equals("UUID")){
-			System.out.println("New Connection.  UUID =" + message.substring(4));
-			master.put(message.substring(4), conn);
-		} else {
-			System.out.println("Message addressed to " + header + " = " + message.substring(4));
-			WebSocket c = master.get(header);
-			c.send(message.substring(4));
-		}
-		*/
 	}
 
 	@Override
