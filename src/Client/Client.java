@@ -7,6 +7,7 @@
 package client;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +49,7 @@ public class Client extends WebSocketClient{
 		Random r = new Random();
 		int uuidNum = r.nextInt(99999);
 		String id = String.format("%05d", uuidNum);
-		uuid = Security.makeHash(password + id);
+		uuid = Security.makeHash(id + password);
 		System.out.println(uuid);
 		c.send("auth." + uuid);
 		lastKey = null;
@@ -86,7 +87,7 @@ public class Client extends WebSocketClient{
 
 	public synchronized static void createClient(String pass) throws URISyntaxException {
 		//c is class private so all methods can acces her for sending messages if this is later necessary.
-		c = new Client(new URI( "ws://localhost:9898" ), new Draft_10() );
+		c = new Client(new URI( "wss://localhost:9898" ), new Draft_10() );
 		c.connect();
 		password = pass;
 	}

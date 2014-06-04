@@ -12,8 +12,15 @@ On the machine that will RECEIVE the keystrokes, Click <a href ="FlashRemote.jar
 <h3>On Mobile</h3>
 In any web browser, go to <b>rsmc.tk/socket</b>.  Start the desktop client first, and it will give you a UUID to enter below.<br>
 </p>
-<form action="client.php" method="get">
-Desktop Client UUID <input type="text" name="UUID"> 
+<form action="client.php" method="post">
+<table>
+<tr>
+<td>Desktop Client ID:</td><td> <input type="text" name="id"></td>
+</tr>
+<tr>
+<td>Password:</td><td><input type="password" name="pass"></td>
+</tr>
+</table>
 <br><br>
 <b>Tick the keys you will need.</b><br><br>
 <input type="checkbox" name="a" value="a" >a

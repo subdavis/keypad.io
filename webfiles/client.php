@@ -22,8 +22,8 @@
 		var testA, testB, teTime, cTime;
 		
 		<?php 
-		foreach ($_GET as $key => $value) {
-		if ($key == "UUID"){ }
+		foreach ($_POST as $key => $value) {
+		if (($key == "id") || ($key=="pass")){ }
 		else{
 		echo "var x" . $key .";\n";
 		echo "x".$key . " = document.getElementById('".$key."');\n";
@@ -40,12 +40,13 @@
 
 		try {
 
-			var host = "ws://rsmc.tk:9898/";
+			var host = "ws://localhost:9898/";
 			console.log("Host:", host);
 			
 			var s = new WebSocket(host);
 			s.onopen = function (e) {
 				console.log("Socket opened.");
+				s.send('webauth.<?php echo hash('sha256' , $_POST['id'] . $_POST['pass']);?>')
 			};
 			
 			s.onclose = function (e) {
@@ -75,12 +76,12 @@
 		<center>
 		<?php
 		
-		foreach ($_GET as $key => $value) {
+		foreach ($_POST as $key => $value) {
 		static $x=0;
-		if ($key == "UUID"){}
+		if (($key == "id") || ($key=="pass")){ }
 		else{
 		if ((($x+1) % 2) == 0 || strlen($key) > 1) {echo "<br>";}
-		echo "<span class=\"test\" id=\"" . $key . "\" onclick=\"s.send('0000." . $_GET["UUID"] .".". $key . "." . "1313')\"><full>" . $key . "</full></span>\n";
+		echo "<span class=\"test\" id=\"" . $key . "\" onclick=\"s.send('send." . $key . "')\" <full>".$key."</full></span>\n";
 		}
 		$x++;
 		}

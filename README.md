@@ -22,6 +22,6 @@ In any web browser, go to keypad.io and input the credentials given by the deskt
 
 Thanks to...
 ---------
- The fastclick library from https://github.com/ftlabs/fastclick
+ The fastclick library at https://github.com/ftlabs/fastclick
 
- @TooTallNate for the Java WebSocket Library at https://github.com/TooTallNate/Java-WebSocket
+ Java WebSocket Library at https://github.com/TooTallNate/Java-WebSocket
