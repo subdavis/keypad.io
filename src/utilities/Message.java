@@ -28,6 +28,7 @@ public class Message {
 			this.purpose = temp[0];
 			this.message= temp[1];
 		} else {
+			System.out.println("Message Formatting Error!");
 			System.out.println(raw);
 		}
 	}

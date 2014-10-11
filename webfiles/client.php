@@ -40,7 +40,7 @@
 
 		try {
 
-			var host = "ws://localhost:9898/";
+			var host = "ws://dev.keypad.io:9898";
 			console.log("Host:", host);
 			
 			var s = new WebSocket(host);
