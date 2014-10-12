@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Bootstrap -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>keypad.io</title>
+    <script type="text/javascript">
+    var mode, key;
+    $(document).keypress(function(e) {
 
-    <!-- Bootstrap -->
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http:////maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Nunito:400,700' rel='stylesheet' type='text/css'>
+      if (mode == "keypad"){
+        key = e.which;
+        key = String.fromCharCode(key);
+        s.send("send."+key);
+      }
+    });
+    function load(){
+      $("#keypad").hide();
+      mode = "main";
+      //alert("test");
+    }
+    function doSignIn(){
+      //alert("test");
+      //document.getElementById("pass").style.border = "2px solid #000000";
+      var id = $("#idnum").val();
+      var pass = $("#pass").val();
+      if (id.length == 5 && pass.length >= 8){
+        $("#main").hide();
+        $("#keypad").show();
+        try {
+
+          var host = "ws://dev.keypad.io:9898";
+          console.log("Host:", host);
+
+          var s = new WebSocket(host);
+          s.onopen = function (e) {
+            console.log("Socket opened.");
+            s.send('webauth.'+id+'.'+pass);
+          };
+
+          s.onclose = function (e) {
+            console.log("Socket closed.");
+          };
+
+          s.onmessage = function (e) {
+            console.log("Socket message:", e.data);
+            var p = document.createElement("p");
+            p.innerHTML = e.data;
+            output.appendChild(p);
+          };
+
+          s.onerror = function (e) {
+            console.log("Socket error:", e);
+          };
+
+        } catch (ex) {
+          console.log("Socket exception:", ex);
+        }
+      }
+    }
+    function checkID(){
+      var val = $("#idnum").val();
+      if (val.length != 5){
+        document.getElementById("idnum").style.border = "2px solid #E00000";
+      } else {
+        document.getElementById("idnum").style.border = "2px solid #00CC66";
+        }
+    }
+    function checkPass(){
+      var val = $("#pass").val();
+      if (val.length <= 7){
+        document.getElementById("pass").style.border = "2px solid #E00000";
+      } else {
+        document.getElementById("pass").style.border = "2px solid #00CC66";
+        }
+    }
+    function useFullBoard(){
+      $("#foo").focus();
+      mode="keypad";
+    }
+    </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,67 +93,101 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-      body {font-family: 'Nunito', sans-serif}
-      p {font-family: sans-serif}
+      body {
+        font-family: 'Nunito', sans-serif;
+        background:#E0E0E0;
+      }
+      p, h4 {
+        font-family: sans-serif;
+        line-height:150%;
+      }
     </style>
   </head>
-  <body>
-    <div class="container-fluid">
+  <body onload="load()">
+    <div class="container-fluid" id="main">
       <div class="row">
         <div class="col-md-12" style="background:#000000">
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
               <center>
                 <font color="white">
-                  <h1 ><b>keypad.io</b></h1>
+                  <h1><b>keypad.io</b></h1>
                 </font>
-                <font color="#99EB99">send fast keypresses from anything running javascript<br>&nbsp
+                <font color="#99EB99">send fast keypresses from anything running javascript<br>&nbsp;
                 </font>
               </center>
             </div>
             <div class="col-md-1 col-md-offset-2 hidden-sm hidden-xs">
-              <a href="https://github.com/subdavis/keypad.io">
-                <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+              <a href="https://github.com/subdavis/keypad.io"><img style="position: absolute; top: 0; right: 0; border: 0; z-index:2;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+	          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="background:#CCFFCC">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="col-md-4">
+                <center>
+                  <h2>Step 1:</h2>
+                  <img src="pics/laptop.png">
+                  <br><br><button class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Download Client</button>
+                </center>
+              </div>
+              <div class="col-md-4">
+                <center>
+                  <h2>Step 2:</h2>
+                  <img src="pics/phone.png">
+                  <br><br><button class="btn btn-primary"><span class="glyphicon glyphicon-globe"></span> Visit keypad.io mobile</button>
+                </center>
+              </div>
+              <div class="col-md-4">
+                <center>
+                  <h2>Step 3:</h2><br>
+                    <input type="text" onchange="checkID()" onKeyUp="checkID()" id="idnum" placeholder="client id" class="form-control has-success"/>
+                    <br>
+                    <input type="password" onchange="checkPass()" onKeyUp="checkPass()" id="pass" placeholder="password" class="form-control"/>
+                    <br><br>
+                    <button id="open" onClick="doSignIn()" class="btn btn-primary" style="width:160px">Sign In</button>
+                </center>
+              </div>
+              &nbsp
             </div>
+            <!--<div class="col-md-8 col-md-offset-2">
+              <div class="row">
+                <div class="col-md-2">
+                  <img src="pics/laptop.png" width="64" height="64">
+                </div>
+                <div class="col-md-6">
+                  Step 2:
+                </div>
+              </div>
+            </div>-->
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-8 col-md-offset-2" style="background:#CCFFCC">
-          <div class="col-md-4">
-            <center>
-              <h3>Step 1</h3>
-              <img src="icons/notebook.png">
-              <br><br><p>Download cross-platform</p>
-            </center>
-          </div>
-          <div class="col-md-4">
-            <center>
-              <h2>Step 2:</h2>
-              <img src="icons/mobile.png">
-              <br><br><p>Start new session</p>
-            </center>
-          </div>
-          <div class="col-md-4">
-            <center>
-              <h2>Step 3:</h2>
-              <img src="icons/mobile.png">
-              <br><br><p>Start new session</p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12" style="background:#000000">
+        <div class="col-md-12">
           <div class="col-md-8 col-md-offset-2">
-            <center>
-              <font color="white">
-                <h2><b>What is keypad.io</b></h2>
-              </font>
-            </center>
+            <h2><b>what is keypad.io</b></h2>
+            <h4>A new service that allows the user to send <i>fast</i> keypresses from mobile devices like iPhone, iPad and android directly to the desktop.  It is compatible with all mobile devices capable of JavaScript and with all desktops running java.</h4>
+            <h2><b>how does it work</b></h2>
+            <h4>To send a keystroke from a mobile device to your computer, just download and run the portable desktop client.  It will give you an id and ask for a password.  Visit this site with your mobile device and sign in with the same login combo.</h4>
+            <br>
+            <div class="alert alert-danger" role="alert"><b>Notice!</b> This site is simply a shell and currently has no function.  Check back often!</div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="container-fluid" id="keypad">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <br><input type='text' id='foo' style="width:0;height:0;opacity:0;">
+          <button class="btn btn-primary btn-block" onclick='useFullBoard()'>Full Keyboard</button><br><br>
+          <button type="button" class="btn btn-default btn-block"><a href="http://keypad.io">Start Over</a></button>
+        </div>
+      </div>
+    </div>
     </div>
   </body>
 </html>
