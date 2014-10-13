@@ -20,6 +20,8 @@ public class Message {
 	private String raw;
 	private String message;
     private String purpose;
+	private String pass;
+	private String id;
 	
 	public Message(String message){
 		this.raw = message;
@@ -27,6 +29,10 @@ public class Message {
 		if (temp.length == 2){
 			this.purpose = temp[0];
 			this.message= temp[1];
+		} else if (temp.length == 3){
+			this.purpose=temp[0];
+			this.id=temp[1];
+			this.pass=temp[2];
 		} else {
 			System.out.println("Message Formatting Error!");
 			System.out.println(raw);
@@ -36,9 +42,14 @@ public class Message {
 	public String getMessage(){
 		return message;
 	}
-	
 	public String getPurpose(){
 		return purpose;
+	}
+	public String getID(){
+		return id;
+	}
+	public String getPassword(){
+		return pass;
 	}
 	
 }

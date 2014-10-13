@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>keypad.io</title>
     <script type="text/javascript">
-    var mode, key;
+    var mode, key, s;
     $(document).keypress(function(e) {
 
       if (mode == "keypad"){
@@ -39,7 +39,7 @@
           var host = "ws://dev.keypad.io:9898";
           console.log("Host:", host);
 
-          var s = new WebSocket(host);
+          s = new WebSocket(host);
           s.onopen = function (e) {
             console.log("Socket opened.");
             s.send('webauth.'+id+'.'+pass);

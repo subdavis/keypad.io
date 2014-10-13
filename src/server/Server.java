@@ -51,12 +51,12 @@ public class Server extends WebSocketServer{
 		Message full = new Message(message);
 		
 		if (full.getPurpose().equals("auth")){
-			System.out.println("New Connection.  UUID =" + full.getMessage());
-			clientMaster.put(full.getMessage(), conn);
+			System.out.println("New Client Connection.  ID = " + full.getID());
+			clientMaster.put(full.getID(), conn);
 		} else if (full.getPurpose().equals("webauth")) {
-			System.out.println("Web auth " + full.getMessage());
-			if (clientMaster.containsKey(full.getMessage())){
-				webClientMaster.put(conn, clientMaster.get(full.getMessage()));
+			System.out.println("New Web Connection.  ID = " + full.getID());
+			if (clientMaster.containsKey(full.getID())){
+				webClientMaster.put(conn, clientMaster.get(full.getID()));
 			}
 		} else {
 			WebSocket c = webClientMaster.get(conn);
