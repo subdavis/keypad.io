@@ -48,13 +48,13 @@ public class Client extends WebSocketClient{
 		
 		Random r = new Random();
 		int uuidNum = r.nextInt(99999);
-		String id = String.format("%05d", uuidNum);
-		uuid = Security.makeHash(id + password);
+		uuid = String.format("%05d", uuidNum);
+		//uuid = Security.makeHash(id + password);
 		System.out.println(uuid);
-		c.send("auth." + uuid);
+		c.send("auth." + uuid + "." + password);
 		lastKey = null;
 		status = true;
-		gooey.setID(id);
+		gooey.setID(uuid);
 	}
 
 	@Override

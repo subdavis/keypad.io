@@ -18,9 +18,11 @@
       if (mode == "keypad"){
         key = e.which;
         key = String.fromCharCode(key);
+        alert(key);
         s.send("send."+key);
       }
     });
+
     function load(){
       $("#keypad").hide();
       mode = "main";

@@ -35,6 +35,32 @@ public class KeyPress {
 		keyPressMap.put("x", KeyEvent.VK_X);
 		keyPressMap.put("y", KeyEvent.VK_Y);
 		keyPressMap.put("z", KeyEvent.VK_Z);
+		keyPressMap.put("A", KeyEvent.VK_A);
+		keyPressMap.put("B", KeyEvent.VK_B);
+		keyPressMap.put("C", KeyEvent.VK_C);
+		keyPressMap.put("D", KeyEvent.VK_D);
+		keyPressMap.put("E", KeyEvent.VK_E);
+		keyPressMap.put("F", KeyEvent.VK_F);
+		keyPressMap.put("G", KeyEvent.VK_G);
+		keyPressMap.put("H", KeyEvent.VK_H);
+		keyPressMap.put("I", KeyEvent.VK_I);
+		keyPressMap.put("J", KeyEvent.VK_J);
+		keyPressMap.put("K", KeyEvent.VK_K);
+		keyPressMap.put("L", KeyEvent.VK_L);
+		keyPressMap.put("M", KeyEvent.VK_M);
+		keyPressMap.put("N", KeyEvent.VK_N);
+		keyPressMap.put("O", KeyEvent.VK_O);
+		keyPressMap.put("P", KeyEvent.VK_P);
+		keyPressMap.put("Q", KeyEvent.VK_Q);
+		keyPressMap.put("R", KeyEvent.VK_R);
+		keyPressMap.put("S", KeyEvent.VK_S);
+		keyPressMap.put("T", KeyEvent.VK_T);
+		keyPressMap.put("U", KeyEvent.VK_U);
+		keyPressMap.put("V", KeyEvent.VK_V);
+		keyPressMap.put("W", KeyEvent.VK_W);
+		keyPressMap.put("X", KeyEvent.VK_X);
+		keyPressMap.put("Y", KeyEvent.VK_Y);
+		keyPressMap.put("Z", KeyEvent.VK_Z);
 		keyPressMap.put("0", KeyEvent.VK_0);
 		keyPressMap.put("1", KeyEvent.VK_1);
 		keyPressMap.put("2", KeyEvent.VK_2);
@@ -49,7 +75,7 @@ public class KeyPress {
 		keyPressMap.put("left", KeyEvent.VK_LEFT);
 		keyPressMap.put("enter", KeyEvent.VK_ENTER);
 		keyPressMap.put("backspace", KeyEvent.VK_BACK_SPACE);
-		keyPressMap.put("space", KeyEvent.VK_SPACE);
+		keyPressMap.put(" ", KeyEvent.VK_SPACE);
 	}
 	
 	//covert keys from characters to their key events.
