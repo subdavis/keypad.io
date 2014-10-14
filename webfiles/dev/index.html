@@ -13,16 +13,21 @@
     <title>keypad.io</title>
     <script type="text/javascript">
     var mode, key, s;
-    $(document).keypress(function(e) {
+    $('html').keydown(function(e){
+      if (mode == "keypad"){
+        key = e.keyCode;
+        s.send("send."+key);
+      }
+    });
+    /*$(document).keypress(function(e) {
 
       if (mode == "keypad"){
-        key = e.which;
-        key = String.fromCharCode(key);
+        key = e.keyCode;
         alert(key);
         s.send("send."+key);
       }
     });
-
+    */
     function load(){
       $("#keypad").hide();
       mode = "main";
