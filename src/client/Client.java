@@ -87,7 +87,7 @@ public class Client extends WebSocketClient{
 
 	public synchronized static void createClient(String pass) throws URISyntaxException {
 		//c is class private so all methods can acces her for sending messages if this is later necessary.
-		c = new Client(new URI( "wss://dev.keypad.io:9898" ), new Draft_10() );
+		c = new Client(new URI( "ws://dev.keypad.io:9898" ), new Draft_10() );
 		c.connect();
 		password = pass;
 	}

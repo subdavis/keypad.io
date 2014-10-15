@@ -25,6 +25,9 @@ public class Server extends WebSocketServer{
 	//When web clients send messages, they are prefaced by the same UUID for lookup by the server.
 	private HashMap<String, WebSocket> clientMaster = new HashMap<String, WebSocket>();
 	private HashMap<WebSocket, WebSocket> webClientMaster = new HashMap<WebSocket, WebSocket>();
+	private HashMap<WebSocket, User> webUserMaster = new HashMap<WebSocket, User>();
+	private HashMap<String, User> userMaster = new HashMap<String, User>();
+	private User tempuser;
 	
 
 	public Server( int port ) throws UnknownHostException {
@@ -50,17 +53,35 @@ public class Server extends WebSocketServer{
 		
 		Message full = new Message(message);
 		
-		if (full.getPurpose().equals("auth")){
+		if (full.getPurpose().equals("auth")){										//Do this if a new connection comes from the desktop
 			System.out.println("New Client Connection.  ID = " + full.getID());
-			clientMaster.put(full.getID(), conn);
-		} else if (full.getPurpose().equals("webauth")) {
+			
+			//new way with password storage and User creation
+			tempuser = new User(full.getID(), full.getPassword(), conn);
+			userMaster.put(full.getID(), tempuser);
+			
+			//old way with shit
+//			clientMaster.put(full.getID(), conn);
+			
+		} else if (full.getPurpose().equals("webauth")) {							//Do this if a new connection comes from Web
 			System.out.println("New Web Connection.  ID = " + full.getID());
-			if (clientMaster.containsKey(full.getID())){
-				webClientMaster.put(conn, clientMaster.get(full.getID()));
+			
+			//new way with password checking
+			if (userMaster.containsKey(full.getID())){
+				String passTest = userMaster.get(full.getID()).getPass();
+				if (full.getPassword().equals(passTest)){
+					webUserMaster.put(conn, userMaster.get(full.getID()));
+				} else conn.send("Wrong Password");
 			}
-		} else {
-			WebSocket c = webClientMaster.get(conn);
+			// Old way without password checking
+//			if (clientMaster.containsKey(full.getID())){
+//				webClientMaster.put(conn, clientMaster.get(full.getID()));
+//			}
+		} else if (webUserMaster.containsKey(conn)) {																	//If neither of those, it must be a previously authed message to be sent
+			WebSocket c = webUserMaster.get(conn).getDest();
 			c.send(message);
+		} else {
+			System.out.println("User not in the map tried to connect");
 		}
 	}
 
